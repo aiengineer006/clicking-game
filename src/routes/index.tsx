@@ -7,8 +7,8 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Idea Storm — A Stimulation Clicker" },
-      { name: "description", content: "Click to collect ideas. Survive the chaos. Beat the game." },
+      { title: "JUST CLICK — A Pencil-Drawn Stimulation Clicker" },
+      { name: "description", content: "Click to collect bulbs. Survive the hand-drawn chaos. Beat the game." },
     ],
   }),
 });
