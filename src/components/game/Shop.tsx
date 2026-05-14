@@ -15,7 +15,7 @@ export function Shop({
 }) {
   const fmt = (n: number) => n.toLocaleString();
 
-  const renderItems = (tier: "normal" | "legend" | "finish", title: string) => {
+  const renderItems = (tier: "normal" | "tasks" | "legend" | "finish", title: string) => {
     const items = SHOP_ITEMS.filter((i) => i.tier === tier);
     return (
       <div className="space-y-3">
