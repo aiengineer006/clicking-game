@@ -38,7 +38,7 @@ export function Notifications({ active }: { active: boolean }) {
   }, [items]);
   if (!active) return null;
   return (
-    <div className="fixed top-32 right-4 z-40 flex flex-col gap-2 pointer-events-none">
+    <div className="fixed top-56 right-4 z-40 flex flex-col gap-2 pointer-events-none">
       {items.map((i) => (
         <div key={i.id} className="animate-notif pencil-border pencil-card px-3 py-2 text-sm handwriting max-w-[240px] pencil-anim-slow">
           🔔 {i.text}
@@ -103,7 +103,7 @@ export function SocialSidebar({ active }: { active: boolean }) {
   }, [active]);
   if (!active) return null;
   return (
-    <div className="fixed left-2 top-1/2 -translate-y-1/2 z-30 w-20 pencil-border pencil-card p-2 text-center handwriting pencil-anim-slow">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-3 pencil-border pencil-card p-2 text-center handwriting pencil-anim-slow">
       <div className="text-xs">👥 {stats.followers}</div>
       <div className="text-xs">❤ {stats.likes}</div>
       <div className="text-xs">✉ {stats.dms}</div>
@@ -264,7 +264,7 @@ export function BrainRot({ active }: { active: boolean }) {
   }, [active]);
   if (!active || !text) return null;
   return (
-    <div className="fixed top-1/3 right-8 z-30 max-w-[260px] display-hand text-3xl text-accent animate-vibrate">
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none max-w-[260px] display-hand text-3xl text-accent animate-vibrate">
       {text}
     </div>
   );
@@ -381,7 +381,7 @@ export function RandomDMs({ active }: { active: boolean }) {
   }, [active]);
   if (!active) return null;
   return (
-    <div className="fixed bottom-56 right-4 z-30 w-64 space-y-2">
+    <div className="fixed top-1/2 right-4 -translate-y-1/2 z-30 w-64 space-y-2">
       {dms.map((d) => (
         <div key={d.id} className="animate-notif pencil-border pencil-card p-2 handwriting text-sm pencil-anim-slow">
           <div className="font-bold">@{d.user}</div>
@@ -425,7 +425,7 @@ export function ChaosMeter({ active, value }: { active: boolean; value: number }
   if (!active) return null;
   const pct = Math.min(100, value);
   return (
-    <div className="fixed top-36 right-4 z-40 w-56">
+    <div className="fixed top-40 right-4 z-40 w-56">
       <div className="display-hand text-base mb-1">⚡ Chaos Level</div>
       <div className="h-4 pencil-border bg-card overflow-hidden">
         <div
