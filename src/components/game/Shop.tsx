@@ -75,6 +75,7 @@ export function Shop({
         </SheetHeader>
         <div className="mt-6 space-y-6 pb-10">
           {renderItems("normal", "Upgrades")}
+          {renderItems("tasks", "Tasks")}
           {renderItems("legend", "Legend Tier")}
           {renderItems("finish", "Finish It")}
         </div>
