@@ -15,7 +15,7 @@ export function Shop({
 }) {
   const fmt = (n: number) => n.toLocaleString();
 
-  const renderItems = (tier: "normal" | "legend" | "finish", title: string) => {
+  const renderItems = (tier: "normal" | "tasks" | "legend" | "finish", title: string) => {
     const items = SHOP_ITEMS.filter((i) => i.tier === tier);
     return (
       <div className="space-y-3">
@@ -75,6 +75,7 @@ export function Shop({
         </SheetHeader>
         <div className="mt-6 space-y-6 pb-10">
           {renderItems("normal", "Upgrades")}
+          {renderItems("tasks", "Tasks")}
           {renderItems("legend", "Legend Tier")}
           {renderItems("finish", "Finish It")}
         </div>

@@ -4,9 +4,21 @@ export type ShopItem = {
   description: string;
   price: number;
   cps: number;
-  tier: "normal" | "legend" | "finish";
+  tier: "normal" | "tasks" | "legend" | "finish";
   ytId?: string;
 };
+
+export const TASKS: { id: string; title: string; question: string; reward: number; cost: number }[] = [
+  { id: "t-haiku",  title: "Write a Haiku",          question: "Write a haiku about clicking. (3 lines)", reward: 1000, cost: 5  },
+  { id: "t-math",   title: "Solve: 17 × 23",          question: "What is 17 × 23?",                        reward: 1000, cost: 8  },
+  { id: "t-anagram",title: "Anagram of LISTEN",       question: "Type a real anagram of the word LISTEN.", reward: 1000, cost: 12 },
+  { id: "t-color",  title: "Hex of a Sunset",         question: "Type any hex color (e.g. #ff8a3d) you'd call 'sunset'.", reward: 1000, cost: 18 },
+  { id: "t-draw",   title: "Describe Your Doodle",    question: "Describe (in 1 sentence) the most chaotic doodle you can imagine.", reward: 1000, cost: 25 },
+  { id: "t-name",   title: "Name a New Planet",       question: "Invent a name for a new planet.",         reward: 1000, cost: 35 },
+  { id: "t-secret", title: "Confess a Tiny Secret",   question: "Type a tiny harmless secret.",            reward: 1000, cost: 50 },
+  { id: "t-promise",title: "Make a Promise",          question: "Make a promise to your future self.",      reward: 1000, cost: 70 },
+];
+
 
 export const SHOP_ITEMS: ShopItem[] = [
   { id: "daynight", name: "Day & Night Cycle", description: "Hand-drawn sun, moon, scribbled stars. Sky flips every 59s.", price: 50, cps: 1, tier: "normal" },
@@ -25,6 +37,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: "dms", name: "Random DM Messages", description: "Hi, can u send me 5 bulbs pls.", price: 1100000, cps: 540, tier: "normal" },
   { id: "cursor", name: "Cursor Evolution", description: "Your cursor grows. And grows. And glows.", price: 1700000, cps: 700, tier: "normal" },
   { id: "chaosmeter", name: "Chaos Meter", description: "Track your descent. The meter never lies.", price: 2500000, cps: 900, tier: "normal" },
+  // TASKS UNLOCK
+  { id: "tasksUnlock", name: "Tasks Tab ✨", description: "Unlocks a brand new tab. Click to earn STARS, complete tasks, get 1000 bulbs each.", price: 3500000, cps: 1000, tier: "tasks" },
   // LEGEND
   { id: "yt1", name: "LEGEND: Barchasiga Qimor Aybdormi?", description: "Embedded autoplay video, drifting around your screen.", price: 4000000, cps: 1200, tier: "legend", ytId: "_RY4nsE6hfg" },
   { id: "yt2", name: "LEGEND: ФРЭН БОЙ ► Creepy Tale #1", description: "Another autoplaying haunting.", price: 6500000, cps: 1700, tier: "legend", ytId: "Zg4OX0WwE9c" },
