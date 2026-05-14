@@ -142,6 +142,16 @@ export function Game({ onIntroDone }: { onIntroDone: boolean }) {
     setOwned((o) => new Set(o).add(item.id));
     if (item.id === "msg") setStreamerDlg(true);
     if (item.id === "cup") triggerWin();
+    if (item.id === "tasksUnlock") {
+      setTimeout(() => switchView("tasks"), 350);
+    }
+  };
+
+  const buyTask = (id: string, cost: number) => {
+    if (stars < cost || tasksOwned.has(id)) return false;
+    setStars((s) => s - cost);
+    setTasksOwned((o) => new Set(o).add(id));
+    return true;
   };
 
   const triggerWin = () => {
