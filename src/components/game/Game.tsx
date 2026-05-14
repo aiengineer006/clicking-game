@@ -51,7 +51,7 @@ export function Game({ onIntroDone }: { onIntroDone: boolean }) {
 
   const switchView = (target: "main" | "tasks") => {
     if (target === view) return;
-    setSlideDir(target === "tasks" ? "right" : "left");
+    void (target === "tasks" ? "right" : "left");
     if (target === "main" && pendingBulbs > 0) {
       setPendingNote(pendingBulbs);
       setPendingBulbs(0);
