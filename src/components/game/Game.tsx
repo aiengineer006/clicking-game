@@ -14,6 +14,8 @@ import { SHOP_ITEMS, type ShopItem } from "./shopItems";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { TasksTab } from "./TasksTab";
+import { ArrowLeftRight } from "lucide-react";
 
 const MUSIC = [
   "/audio/gymnopedie.mp3",
