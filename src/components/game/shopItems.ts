@@ -4,9 +4,21 @@ export type ShopItem = {
   description: string;
   price: number;
   cps: number;
-  tier: "normal" | "legend" | "finish";
+  tier: "normal" | "tasks" | "legend" | "finish";
   ytId?: string;
 };
+
+export const TASKS: { id: string; title: string; question: string; reward: number; cost: number }[] = [
+  { id: "t-haiku",  title: "Write a Haiku",          question: "Write a haiku about clicking. (3 lines)", reward: 1000, cost: 5  },
+  { id: "t-math",   title: "Solve: 17 × 23",          question: "What is 17 × 23?",                        reward: 1000, cost: 8  },
+  { id: "t-anagram",title: "Anagram of LISTEN",       question: "Type a real anagram of the word LISTEN.", reward: 1000, cost: 12 },
+  { id: "t-color",  title: "Hex of a Sunset",         question: "Type any hex color (e.g. #ff8a3d) you'd call 'sunset'.", reward: 1000, cost: 18 },
+  { id: "t-draw",   title: "Describe Your Doodle",    question: "Describe (in 1 sentence) the most chaotic doodle you can imagine.", reward: 1000, cost: 25 },
+  { id: "t-name",   title: "Name a New Planet",       question: "Invent a name for a new planet.",         reward: 1000, cost: 35 },
+  { id: "t-secret", title: "Confess a Tiny Secret",   question: "Type a tiny harmless secret.",            reward: 1000, cost: 50 },
+  { id: "t-promise",title: "Make a Promise",          question: "Make a promise to your future self.",      reward: 1000, cost: 70 },
+];
+
 
 export const SHOP_ITEMS: ShopItem[] = [
   { id: "daynight", name: "Day & Night Cycle", description: "Hand-drawn sun, moon, scribbled stars. Sky flips every 59s.", price: 50, cps: 1, tier: "normal" },
