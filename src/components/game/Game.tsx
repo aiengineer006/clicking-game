@@ -167,57 +167,104 @@ export function Game({ onIntroDone }: { onIntroDone: boolean }) {
   const cursorLevel = owned.has("cursor") ? owned.size : 0;
 
   return (
-    <div className="relative min-h-screen w-full select-none cursor-pointer" onClick={handleClick}>
+    <div className="relative min-h-screen w-full select-none overflow-hidden">
       <PencilFilter />
-      <DayNightCycle active={owned.has("daynight") && !winning} />
 
-      {!winning && onIntroDone && <Shop bulbs={Math.floor(bulbs)} owned={owned} onBuy={buy} />}
-
-      {/* Score */}
+      {/* Sliding view container */}
       {!winning && onIntroDone && (
-        <div className="fixed top-4 right-4 z-40 flex items-center gap-2 pencil-border-thick pencil-card px-4 py-2 pencil-anim-slow">
-          <span className="text-3xl display-hand tabular-nums">{Math.floor(bulbs).toLocaleString()}</span>
-          <img src={bulbImg} alt="bulbs" className="pixel-img w-8 h-8" />
-          {cps > 0 && <span className="text-sm handwriting text-muted-foreground ml-2">+{cps}/s</span>}
+        <div
+          key={view}
+          className={view === "tasks" ? "animate-mac-right" : "animate-mac-left"}
+        >
+          {view === "main" ? (
+            <div className="relative min-h-screen cursor-pointer" onClick={handleClick}>
+              <DayNightCycle active={owned.has("daynight") && !winning} />
+
+              <Shop bulbs={Math.floor(bulbs)} owned={owned} onBuy={buy} />
+
+              {/* Score */}
+              <div className="fixed top-4 right-4 z-40 flex items-center gap-2 pencil-border-thick pencil-card px-4 py-2 pencil-anim-slow">
+                <span className="text-3xl display-hand tabular-nums">{Math.floor(bulbs).toLocaleString()}</span>
+                <img src={bulbImg} alt="bulbs" className="pixel-img w-8 h-8" />
+                {cps > 0 && <span className="text-sm handwriting text-muted-foreground ml-2">+{cps}/s</span>}
+              </div>
+
+              {/* Center clickable area */}
+              <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 pointer-events-none">
+                <h1 className="text-6xl md:text-9xl display-hand text-foreground leading-none drop-shadow-sm">
+                  JUST CLICK
+                </h1>
+                <p className="text-base md:text-lg handwriting text-foreground/80 mt-3">~ just start clicking to get started ~</p>
+                <div className="mt-8 pointer-events-none pencil-anim">
+                  <img src={bulbImg} alt="" className="pixel-img w-32 h-32 drop-shadow-2xl" />
+                </div>
+              </div>
+
+              {/* Effects layered */}
+              <Notifications active={owned.has("notifs")} />
+              <EmailInbox active={owned.has("email")} />
+              <SocialSidebar active={owned.has("social")} />
+              <ScrollFeed active={owned.has("scroll")} onScrollBulb={() => setBulbs((b) => b + 0.1)} />
+              <Achievements active={owned.has("achievements")} />
+              <MysteryBox active={owned.has("mystery")} onReward={(n) => setBulbs((b) => b + n)} />
+              <BreakingNews active={owned.has("news")} />
+              <BrainRot active={owned.has("brainrot")} />
+              <FakeChat active={owned.has("chat")} />
+              <TrustButton active={owned.has("trust")} onClick={() => setBulbs((b) => b + 100)} />
+              <VirusPopups active={owned.has("virus")} />
+              <RandomDMs active={owned.has("dms")} />
+              <CursorEvolution active={owned.has("cursor")} level={cursorLevel} />
+              <ChaosMeter active={owned.has("chaosmeter")} value={chaos} />
+              {ytItems.map((y, i) => <FloatingYouTube key={y.id} ytId={y.ytId!} idx={i} />)}
+
+              {/* Bulb pops */}
+              {pops.map((p) => <BulbPop key={p.id} id={p.id} x={p.x} y={p.y} />)}
+            </div>
+          ) : (
+            <TasksTab
+              stars={stars}
+              setStars={setStars}
+              tasksOwned={tasksOwned}
+              buyTask={buyTask}
+              onBulbReward={(n) => { setBulbs((b) => b + n); setPendingBulbs((p) => p + n); }}
+            />
+          )}
         </div>
       )}
 
-      {/* Center clickable area */}
-      {onIntroDone && !winning && (
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 pointer-events-none">
-          <h1 className="text-6xl md:text-9xl display-hand text-foreground leading-none drop-shadow-sm">
-            JUST CLICK
-          </h1>
-          <p className="text-base md:text-lg handwriting text-foreground/80 mt-3">~ just start clicking to get started ~</p>
-          <div className="mt-8 pointer-events-none pencil-anim">
-            <img src={bulbImg} alt="" className="pixel-img w-32 h-32 drop-shadow-2xl" />
+      {/* Floating drawn-arrow tab switcher */}
+      {tasksUnlocked && !winning && onIntroDone && (
+        <button
+          onClick={() => switchView(view === "main" ? "tasks" : "main")}
+          className="fixed bottom-6 right-6 z-[60] pencil-border-thick pencil-card px-3 py-2 pencil-anim flex items-center gap-2 handwriting text-base"
+          title="Cmd/Ctrl + ← → to switch"
+        >
+          <ArrowLeftRight className="w-4 h-4" />
+          <span className="display-hand text-lg">
+            {view === "main" ? "→ Tasks" : "← Main"}
+          </span>
+        </button>
+      )}
+
+      {/* Pending bulb note when returning to main */}
+      <Dialog open={pendingNote !== null} onOpenChange={(o) => !o && setPendingNote(null)}>
+        <DialogContent className="pencil-border-thick max-w-sm">
+          <DialogHeader>
+            <DialogTitle className="display-hand text-2xl">You earned bulbs!</DialogTitle>
+            <DialogDescription className="handwriting">
+              You completed tasks and gathered{" "}
+              <b>{pendingNote?.toLocaleString()}</b> bulbs while you were away.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex gap-2">
+            <Button className="flex-1 pencil-border" onClick={() => setPendingNote(null)}>Accept</Button>
+            <Button variant="secondary" className="pencil-border" onClick={() => {
+              setBulbs((b) => Math.max(0, b - (pendingNote ?? 0)));
+              setPendingNote(null);
+            }}>Deny</Button>
           </div>
-        </div>
-      )}
-
-      {/* Effects layered */}
-      {!winning && (
-        <>
-          <Notifications active={owned.has("notifs")} />
-          <EmailInbox active={owned.has("email")} />
-          <SocialSidebar active={owned.has("social")} />
-          <ScrollFeed active={owned.has("scroll")} onScrollBulb={() => setBulbs((b) => b + 0.1)} />
-          <Achievements active={owned.has("achievements")} />
-          <MysteryBox active={owned.has("mystery")} onReward={(n) => setBulbs((b) => b + n)} />
-          <BreakingNews active={owned.has("news")} />
-          <BrainRot active={owned.has("brainrot")} />
-          <FakeChat active={owned.has("chat")} />
-          <TrustButton active={owned.has("trust")} onClick={() => setBulbs((b) => b + 100)} />
-          <VirusPopups active={owned.has("virus")} />
-          <RandomDMs active={owned.has("dms")} />
-          <CursorEvolution active={owned.has("cursor")} level={cursorLevel} />
-          <ChaosMeter active={owned.has("chaosmeter")} value={chaos} />
-          {ytItems.map((y, i) => <FloatingYouTube key={y.id} ytId={y.ytId!} idx={i} />)}
-        </>
-      )}
-
-      {/* Bulb pops */}
-      {pops.map((p) => <BulbPop key={p.id} id={p.id} x={p.x} y={p.y} />)}
+        </DialogContent>
+      </Dialog>
 
       {/* Winning trophy */}
       {winning && (
