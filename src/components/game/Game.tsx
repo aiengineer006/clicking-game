@@ -40,6 +40,37 @@ export function Game({ onIntroDone }: { onIntroDone: boolean }) {
   const musicRef = useRef<HTMLAudioElement | null>(null);
   const musicStartedRef = useRef(false);
 
+  // tasks tab state
+  const [view, setView] = useState<"main" | "tasks">("main");
+  const [slideDir, setSlideDir] = useState<"right" | "left">("right");
+  const [stars, setStars] = useState(0);
+  const [tasksOwned, setTasksOwned] = useState<Set<string>>(new Set());
+  const [pendingBulbs, setPendingBulbs] = useState(0);
+  const [pendingNote, setPendingNote] = useState<number | null>(null);
+  const tasksUnlocked = owned.has("tasksUnlock");
+
+  const switchView = (target: "main" | "tasks") => {
+    if (target === view) return;
+    setSlideDir(target === "tasks" ? "right" : "left");
+    if (target === "main" && pendingBulbs > 0) {
+      setPendingNote(pendingBulbs);
+      setPendingBulbs(0);
+    }
+    setView(target);
+  };
+
+  // keyboard shortcut: Cmd/Ctrl + Arrow
+  useEffect(() => {
+    if (!tasksUnlocked) return;
+    const h = (e: KeyboardEvent) => {
+      if (!(e.metaKey || e.ctrlKey)) return;
+      if (e.key === "ArrowRight") switchView("tasks");
+      if (e.key === "ArrowLeft") switchView("main");
+    };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [tasksUnlocked, view, pendingBulbs]);
+
   const cps = Array.from(owned).reduce((sum, id) => {
     const it = SHOP_ITEMS.find((x) => x.id === id);
     return sum + (it?.cps ?? 0);
