@@ -42,7 +42,7 @@ export function Game({ onIntroDone }: { onIntroDone: boolean }) {
 
   // tasks tab state
   const [view, setView] = useState<"main" | "tasks">("main");
-  const [slideDir, setSlideDir] = useState<"right" | "left">("right");
+  void 0;
   const [stars, setStars] = useState(0);
   const [tasksOwned, setTasksOwned] = useState<Set<string>>(new Set());
   const [pendingBulbs, setPendingBulbs] = useState(0);
