@@ -103,7 +103,7 @@ export function SocialSidebar({ active }: { active: boolean }) {
   }, [active]);
   if (!active) return null;
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-3 pencil-border pencil-card p-2 text-center handwriting pencil-anim-slow">
+    <div className="fixed bottom-2 left-4 z-30 flex gap-3 pencil-border pencil-card p-2 text-center handwriting pencil-anim-slow">
       <div className="text-xs">👥 {stats.followers}</div>
       <div className="text-xs">❤ {stats.likes}</div>
       <div className="text-xs">✉ {stats.dms}</div>
@@ -176,7 +176,7 @@ export function Achievements({ active }: { active: boolean }) {
   }, [active]);
   if (!active || !pop) return null;
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 pencil-border-thick pencil-card px-5 py-3 animate-notif pencil-anim text-center">
+    <div className="fixed top-24 left-1/2 -translate-x-1/2 z-40 pencil-border-thick pencil-card px-5 py-3 animate-notif pencil-anim text-center">
       <div className="display-hand text-2xl">🏆 {pop}</div>
       <div className="handwriting text-xs text-muted-foreground">+0 XP — meaningless!</div>
     </div>
