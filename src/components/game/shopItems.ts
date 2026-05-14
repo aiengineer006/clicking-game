@@ -37,6 +37,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: "dms", name: "Random DM Messages", description: "Hi, can u send me 5 bulbs pls.", price: 1100000, cps: 540, tier: "normal" },
   { id: "cursor", name: "Cursor Evolution", description: "Your cursor grows. And grows. And glows.", price: 1700000, cps: 700, tier: "normal" },
   { id: "chaosmeter", name: "Chaos Meter", description: "Track your descent. The meter never lies.", price: 2500000, cps: 900, tier: "normal" },
+  // TASKS UNLOCK
+  { id: "tasksUnlock", name: "Tasks Tab ✨", description: "Unlocks a brand new tab. Click to earn STARS, complete tasks, get 1000 bulbs each.", price: 3500000, cps: 1000, tier: "tasks" },
   // LEGEND
   { id: "yt1", name: "LEGEND: Barchasiga Qimor Aybdormi?", description: "Embedded autoplay video, drifting around your screen.", price: 4000000, cps: 1200, tier: "legend", ytId: "_RY4nsE6hfg" },
   { id: "yt2", name: "LEGEND: ФРЭН БОЙ ► Creepy Tale #1", description: "Another autoplaying haunting.", price: 6500000, cps: 1700, tier: "legend", ytId: "Zg4OX0WwE9c" },
